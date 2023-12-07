@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>더블크로스ㅡㅡ 그것은 배신을 의미하는 말</title>
-    <link rel="stylesheet" href="./dx3rd.css">
+    <link rel="stylesheet" href="./style.css">
     <link rel="stylesheet" href="./all.min.css">
     <script src="./all.min.js"></script>
 </head>
@@ -422,6 +422,7 @@
                     break;
                 case "emotion_plus":
                     let emotionPlusList = [
+                        { dice: "0", title: "", desc: "", lois: "P" },
                         { dice: "01~05", title: "", desc: "", lois: "P" },
                         { dice: "06~10", title: "", desc: "", lois: "P" },
                         { dice: "11~15", title: "", desc: "", lois: "P" },
@@ -442,11 +443,13 @@
                         { dice: "86~90", title: "", desc: "", lois: "P" },
                         { dice: "91~95", title: "", desc: "", lois: "P" },
                         { dice: "96~100", title: "", desc: "", lois: "P" },
+                        { dice: "101", title: "", desc: "", lois: "P" }
                     ];
                     return { dice: dice10, list: emotionPlusList[dice10] };
                     break;
                 case "emotion_minus":
                     let emotionMinusList = [
+                        { dice: "0", title: "", desc: "", lois: "P" },
                         { dice: "01~05", title: "", desc: "", lois: "N" },
                         { dice: "06~10", title: "", desc: "", lois: "N" },
                         { dice: "11~15", title: "", desc: "", lois: "N" },
@@ -466,7 +469,8 @@
                         { dice: "81~85", title: "", desc: "", lois: "N" },
                         { dice: "86~90", title: "", desc: "", lois: "N" },
                         { dice: "91~95", title: "", desc: "", lois: "N" },
-                        { dice: "96~100", title: "", desc: "", lois: "N" }
+                        { dice: "96~100", title: "", desc: "", lois: "N" },
+                        { dice: "101", title: "", desc: "", lois: "P" }
                     ];
                     return { dice: dice10, list: emotionMinusList[dice10] };
                     break;
