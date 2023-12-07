@@ -234,16 +234,20 @@
         // overed
         document.querySelectorAll(".btn-breed").forEach(btn => {
             btn.addEventListener("click", function (e) {
+                let ttid = e.target.closest("button").id;
+
                 let res = chooseBreed();
-                document.getElementById(e.target.id + "_log").innerHTML = res;
+                document.getElementById(ttid + "_log").innerHTML = res;
             });
         });
 
         // lifepath
         document.querySelectorAll(".btn-life-roll").forEach(btn => {
             btn.addEventListener("click", function (e) {
-                let res = chooseLife(e.target.id);
-                printLife(e.target.id, res);
+                let ttid = e.target.closest("button").id;
+
+                let res = chooseLife(ttid);
+                printLife(ttid, res);
             });
         });
 
