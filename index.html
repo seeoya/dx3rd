@@ -169,8 +169,7 @@
                 $cri = document.querySelector("#cri") ?? "",
                 cri = $cri.value ?? 10,
                 $plus = document.querySelector("#plus") ?? "",
-                plus = $plus.value ?? 0,
-                success = 0;
+                plus = $plus.value ?? 0;
 
             if (!$dice || !dice) {
                 dice = 1;
@@ -387,6 +386,9 @@
                     return { dice: dice, list: encounterList[diceResult] };
                     break;
                 case "awakening":
+                    if (document.getElementById("inc_aw").checked) {
+                        dice10 = rollingDice(12) - 1;
+                    }
                     let awakeningList = [
                         { dice: "0", title: "죽음", desc: "당신은 죽었다. 그건 사고일 수도 있고, 누군가의 계획이었을지도 모른다. 하지만, 당신은 문득 눈치챘다. 몸 안에서 '힘'이 꿈틀거리는 것을.", ren: 18 },
                         { dice: "1", title: "분노", desc: "그걸 본 순간, 당신은 몸이 떨렸다. 호흡이 크게 흐트러졌다. 피가 맥박쳤다. ...몸을 불태울 정도의 분노. 그것이 힘을 불러일으킬 방아쇠가 되었다.", ren: 17 },
@@ -404,6 +406,9 @@
                     return { dice: dice10, list: awakeningList[dice10] };
                     break;
                 case "impulse":
+                    if (document.getElementById("inc_aw").checked) {
+                        dice10 = rollingDice(12) - 1;
+                    }
                     let impulseList = [
                         { dice: "0", title: "해방", desc: "상쾌한 기분이다. '인간'이라고 하는 시시한 이름의 옷을 벗어던지고, 자신은 좀더 고위의 생명체로써 진화를 하고 있었다. 원한, 사람으로써의 욕망, 감정. 이제 그딴 시시한 것들에 속박될 일은, 없다. ....대단해.", ren: 18 },
                         { dice: "1", title: "흡혈", desc: "문득 느꼈다. 격렬한 갈증을. 동시에, 그것이 물 같은 것으로 채워지지 않는 갈증이라는 걸 본능적으로 알았다. 이걸 해결하려면, 당신이 바라는 것은, 눈 앞의... 혹은 마음에 떠오르는 사람의 신체에 흐르는 뜨거운 체액 뿐이다.", ren: 17 },
@@ -421,58 +426,80 @@
                     return { dice: dice10, list: impulseList[dice10] };
                     break;
                 case "emotion_plus":
+                    if (document.getElementById("inc_emo").checked) {
+                        diceResult = rollingDice(22) - 1;
+                    } else {
+                        diceResult = rollingDice(20);
+                    }
+
                     let emotionPlusList = [
-                        { dice: "0", title: "", desc: "", lois: "P" },
-                        { dice: "01~05", title: "", desc: "", lois: "P" },
-                        { dice: "06~10", title: "", desc: "", lois: "P" },
-                        { dice: "11~15", title: "", desc: "", lois: "P" },
-                        { dice: "16~20", title: "", desc: "", lois: "P" },
-                        { dice: "21~25", title: "", desc: "", lois: "P" },
-                        { dice: "26~30", title: "", desc: "", lois: "P" },
-                        { dice: "31~35", title: "", desc: "", lois: "P" },
-                        { dice: "36~40", title: "", desc: "", lois: "P" },
-                        { dice: "41~45", title: "", desc: "", lois: "P" },
-                        { dice: "46~50", title: "", desc: "", lois: "P" },
-                        { dice: "51~55", title: "", desc: "", lois: "P" },
-                        { dice: "56~60", title: "", desc: "", lois: "P" },
-                        { dice: "61~65", title: "", desc: "", lois: "P" },
-                        { dice: "66~70", title: "", desc: "", lois: "P" },
-                        { dice: "71~75", title: "", desc: "", lois: "P" },
-                        { dice: "76~80", title: "", desc: "", lois: "P" },
-                        { dice: "81~85", title: "", desc: "", lois: "P" },
-                        { dice: "86~90", title: "", desc: "", lois: "P" },
-                        { dice: "91~95", title: "", desc: "", lois: "P" },
-                        { dice: "96~100", title: "", desc: "", lois: "P" },
-                        { dice: "101", title: "", desc: "", lois: "P" }
+                        { dice: "0", title: "경도", desc: "당신은 상대의 사상이나 센스를 경도하게 된다.", lois: "P" },
+
+                        { dice: "01~05", title: "호기심", desc: "당신은 호기심을 자극당해, 상대에 대해 알고싶어진다.", lois: "P" },
+                        { dice: "06~10", title: "동경", desc: "당신은 상대에게 동경을 느낀다. 이제는 손에 넣을 수 없는 평범한 생활, 상대의 강함 같은 것을.", lois: "P" },
+                        { dice: "11~15", title: "존경", desc: "당신은 상대를 존경한다. 전투능력의 평가, 평범한 인간의 평범한 강함같은 것의 감동이라던가.", lois: "P" },
+                        { dice: "16~20", title: "연대감", desc: "당신은 상대에게 동료의식을 느낀다. 같은 오버드기에, 같은 UGN 칠드런이기에.", lois: "P" },
+                        { dice: "21~25", title: "자애", desc: "당신은 상대에게 친숙함을 느낀다. 병약한 여동생, 있는 힘껏 부활동에 힘쓰는 후배라던가.", lois: "P" },
+
+                        { dice: "26~30", title: "감복", desc: "당신은 상대에게 감복한다. 탁월한 전투능력, 버려진 강아지를 주워오는 상냥함이라던가.", lois: "P" },
+                        { dice: "31~35", title: "순애", desc: "당신은 상대에게 순수한 사랑을 느낀다. 보호대상으로써, 연애대상으로써, 라이벌로써.", lois: "P" },
+                        { dice: "36~40", title: "우정", desc: "당신은 상대에게 우정을 느낀다. 대상의 성별, 연령, 입장 등.", lois: "P" },
+                        { dice: "41~45", title: "모정", desc: "당신은 상대에게 마음 깊은 곳에서 찡하는 그리움을 느낀다. 죽은 육친의 추억같은 것을.", lois: "P" },
+                        { dice: "46~50", title: "동정", desc: "당신은 상대에게 동정감을 느낀다. 힘이 약한 오버드에게, 레네게이드 바이러스에 떠는 인간에게.", lois: "P" },
+
+                        { dice: "51~55", title: "의지", desc: "당신은 죽은 자가 남긴 마음을 떠올렸다. 어린 아이를 보고 이제는 없는 양친의 의지같은 것을.", lois: "P" },
+                        { dice: "56~60", title: "비호", desc: "당신은 상대를 지키고 싶다고 생각한다. 연약한 여동생을 지키고싶다, 괴롭힘받는 자를 구하고 싶다던가.", lois: "P" },
+                        { dice: "61~65", title: "행복감", desc: "당신은 상대를 보며 어딘가 기분좋음을 느낀다. 같이 있으면 마음이 편안해지고, 부드러운 기분이 된다.", lois: "P" },
+                        { dice: "66~70", title: "신뢰", desc: "당신은 상대에게 신뢰감을 느낀다. 사이 좋은 부활동료로써, 업무상의 상사나 부하 등.", lois: "P" },
+                        { dice: "71~75", title: "집착", desc: "당신은, 어쨌든 상대가 신경쓰인다. 잘 때에도, 식사 중에도, 상대가 머릿속에서 떠나지 않는다.", lois: "P" },
+
+                        { dice: "76~80", title: "친근감", desc: "당신은 상대가 남 같지 않다, 같은 취미, 생각을 가지고 있다 등.", lois: "P" },
+                        { dice: "81~85", title: "성의", desc: "당신은 상대에게 충실함을 느낀다. 공부나 일을 할 때의 주도성, 무슨 일이 있어도 약속을 지키는 신뢰감 등.", lois: "P" },
+                        { dice: "86~90", title: "호의", desc: "당신은 상대에게 호의를 가지고 있다. 성격, 몸가짐, 용모 등.", lois: "P" },
+                        { dice: "91~95", title: "유위", desc: "당신은 상대의 가능성을 보았다. 부활동에서 정규 선수로 발탁되거나, 오버드의 소질을 느끼는 등.", lois: "P" },
+                        { dice: "96~100", title: "노력", desc: "당신은 순수하게 노력하고 싶다고 생각한다. 상대의 목적에 공감했거나, 그저 그 사람의 매력을 느꼈다던가.", lois: "P" },
+
+                        { dice: "101", title: "회구", desc: "당신은 대상에게 어딘가 그리움을 느낀다. 죽은 친구와 닮았다, 사실은 과거에 만났다 같은 것.", lois: "P" }
                     ];
-                    return { dice: dice10, list: emotionPlusList[dice10] };
+                    return { dice: diceResult, list: emotionPlusList[diceResult] };
                     break;
                 case "emotion_minus":
+                    if (document.getElementById("inc_emo").checked) {
+                        diceResult = rollingDice(22) - 1;
+                    } else {
+                        diceResult = rollingDice(20);
+                    }
+
                     let emotionMinusList = [
-                        { dice: "0", title: "", desc: "", lois: "P" },
-                        { dice: "01~05", title: "", desc: "", lois: "N" },
-                        { dice: "06~10", title: "", desc: "", lois: "N" },
-                        { dice: "11~15", title: "", desc: "", lois: "N" },
-                        { dice: "16~20", title: "", desc: "", lois: "N" },
-                        { dice: "21~25", title: "", desc: "", lois: "N" },
-                        { dice: "26~30", title: "", desc: "", lois: "N" },
-                        { dice: "31~35", title: "", desc: "", lois: "N" },
-                        { dice: "36~40", title: "", desc: "", lois: "N" },
-                        { dice: "41~45", title: "", desc: "", lois: "N" },
-                        { dice: "46~50", title: "", desc: "", lois: "N" },
-                        { dice: "51~55", title: "", desc: "", lois: "N" },
-                        { dice: "56~60", title: "", desc: "", lois: "N" },
-                        { dice: "61~65", title: "", desc: "", lois: "N" },
-                        { dice: "66~70", title: "", desc: "", lois: "N" },
-                        { dice: "71~75", title: "", desc: "", lois: "N" },
-                        { dice: "76~80", title: "", desc: "", lois: "N" },
-                        { dice: "81~85", title: "", desc: "", lois: "N" },
-                        { dice: "86~90", title: "", desc: "", lois: "N" },
-                        { dice: "91~95", title: "", desc: "", lois: "N" },
-                        { dice: "96~100", title: "", desc: "", lois: "N" },
-                        { dice: "101", title: "", desc: "", lois: "P" }
+                        { dice: "0", title: "모멸", desc: "당신은 상대에게 모멸감을 느낀다. 오버드를 두려워하는 연구자, 평범함의 장점을 모르는 엘리트 등.", lois: "N" },
+
+                        { dice: "01~05", title: "식상", desc: "당신은 상대에게 식상함을 느낀다. 일방적인 애정을 주는 모친, 일방적인 사랑을 원하는 연인 등.", lois: "N" },
+                        { dice: "06~10", title: "위협", desc: "당신은 상대에게 위협을 느낀다. 강적의 전투력, 상대를 잃는 두려움 등.", lois: "N" },
+                        { dice: "11~15", title: "질투", desc: "당신은 상대를 질투한다. 자신이 잃어버린 '평범함'에, 자신보다 나은 능력 등.", lois: "N" },
+                        { dice: "16~20", title: "회개", desc: "당신은 상대를 보고 후회할 만한 과거를 떠올린다. 말하지 못한 말, 실력부족으로 잃어버린 사람의 기억 등.", lois: "N" },
+                        { dice: "21~25", title: "공포", desc: "당신은 상대에게 공포를 느낀다. 소실의 공포, 전투력의 공포, 너무나도 이질적인 정신의 공포 등.", lois: "N" },
+
+                        { dice: "26~30", title: "불안", desc: "당신은 상대에게 불안을 느낀다. 인격의 불안, 소실의 불안 등.", lois: "N" },
+                        { dice: "31~35", title: "열등감", desc: "당신은 상대에게 열등감을 가지고 있다. 자신이 잃어버린 '일상'을 가지고 있거나, 고결한 정신의 열등감을 느끼는 등.", lois: "N" },
+                        { dice: "36~40", title: "소외감", desc: "당신은 상대에게 소외감을 자극받고 있다. '평범한 일상'으로 돌아갈 수 없는 초조함 등.", lois: "N" },
+                        { dice: "41~45", title: "치욕", desc: "당신은 상대에게 받은 과거의 치욕을 떠올렸다. 과거의 패배, 실패, 실연 등.", lois: "N" },
+                        { dice: "46~50", title: "연민", desc: "당신은 상대에게 우월감같은 것을 느낀다. 압도적인 차이가 벌어지는 라이벌 등.", lois: "N" },
+
+                        { dice: "51~55", title: "편애", desc: "당신은 상대에게 치우쳐진 애정을 느낀다. 모친의 편애, 아버지의 편애, 아이의 편애 등.", lois: "N" },
+                        { dice: "56~60", title: "증오", desc: "당신은 상대에게 증오감을 느낀다. 과거에 당신의 소중한 사람을 상처입히거나, 생각방식에 찬동하지 않았다던가.", lois: "N" },
+                        { dice: "61~65", title: "격의", desc: "당신은 상대와 마음을 터놓을 수 없다는 것을 느낀다. 생각의 차이, 상대의 콤플렉스 등.", lois: "N" },
+                        { dice: "66~70", title: "혐오", desc: "당신은 상대를 혐오하고 있다. 성격이나 목소리가 마음에 들지 않아, 생각의 차이 등.", lois: "N" },
+                        { dice: "71~75", title: "시의심", desc: "당신은 상대를 의심한다. 진상은 알 수 없지만, 과거에 당신을 속인 사람과 닮았다 등.", lois: "N" },
+
+                        { dice: "76~80", title: "싫증", desc: "당신은 상대를 성가시거나 답답하다고 느낀다. 뜻이 맞지 않아, 따라다녀 등.", lois: "N" },
+                        { dice: "81~85", title: "불신감", desc: "당신은 상대를 신용할 수 없다. 본심을 읽을수가 없고, 위험한 냄새가 난다 등.", lois: "N" },
+                        { dice: "86~90", title: "불쾌감", desc: "당신은 상대를 불쾌하다 느낀다. 인격이나 태도 등 어딘가에 그렇게 느끼거나, 그 정도 등.", lois: "N" },
+                        { dice: "91~95", title: "분함", desc: "당신은 상대에게 분노나 분함을 느낀다. 그 자의 언동이나 생각방식, 태도 등.", lois: "N" },
+                        { dice: "96~100", title: "적개심", desc: "당신은 상대에게 적개심을 느낀다. 상대가 마음에 안 든다, 적으로 있는 게 재밌다고 생각한다 등.", lois: "N" },
+
+                        { dice: "101", title: "무관심", desc: "당신은 상대에게 흥미가 있어도 무관심하고 싶다고 생각한다. 사건에 휘말릴 것 같다는 예감이 든다 등.", lois: "N" }
                     ];
-                    return { dice: dice10, list: emotionMinusList[dice10] };
+                    return { dice: diceResult, list: emotionMinusList[diceResult] };
                     break;
                 default:
                     break;
@@ -481,13 +508,13 @@
 
         function printLife(id, res) {
             document.getElementById("life_" + id).innerHTML = `<div class="dice">${res.dice}. ${res.list.title}</div><div class="lois">${res.list.lois ?? res.list.ren}</div><div class="desc">${res.list.desc}</div>`;
-
         }
 
         function rollingDxDice(dice, cri, plus) {
             let repeat = 1,
                 sum = 0,
-                log = [];
+                log = [],
+                success = 0;
 
             for (let i = 0; i < repeat; i++) {
                 success = 0;
