@@ -276,6 +276,9 @@ header .nav .link:hover {
     flex-direction: column;
     justify-content: start;
     align-items: center;
+    height: 220px;
+    font-size: 1.3rem;
+    line-height: 1.7;
 }
 
 #dx_lifepath .lifepath-log > div {
