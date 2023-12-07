@@ -1,0 +1,507 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>더블크로스ㅡㅡ 그것은 배신을 의미하는 말</title>
+    <link rel="stylesheet" href="./dx3rd.css">
+    <link rel="stylesheet" href="./all.min.css">
+    <script src="./all.min.js"></script>
+</head>
+
+<body>
+    <div class="wrapper">
+        <header>
+            <ul class="nav">
+                <li><a href="#all" id="btn_all" class="link">ALL</a></li>
+                <li><a href="#dx_dice" id="btn_dx_dice" class="link">DX DICE</a></li>
+                <li><a href="#dx_overed" id="btn_dx_overed" class="link">OVERED</a></li>
+                <li><a href="#dx_lifepath" id="btn_dx_lifepath" class="link">LIFEPATH</a></li>
+            </ul>
+        </header>
+
+        <div class="container">
+            <div id="dx_dice" class="sec">
+                <h1>다이스</h1>
+
+                <div class="sec-wrap">
+                    <div class="dice-input">
+                        <input type="number" id="dice" value="1" min="1">
+                        <span>dx</span>
+                        <input type="number" id="cri" value="10" min="2">
+                        <span>+</span>
+                        <input type="number" id="plus" value="0" min="0">
+                        <button type="button" id="dx_roll" class="btn-roll">
+                            <span class="blind">ROLL</span>
+                            <i class="fa-solid fa-dice-d20"></i></button>
+                    </div>
+
+                    <div class="dice-log"></div>
+                </div>
+            </div>
+
+            <div id="dx_overed" class="sec">
+                <h1>
+                    <span>오버드</span>
+                    <span class="check">
+                        <input type="checkbox" id="inc_our">
+                        <label for="inc_our">우로보로스/아자토스 포함</label>
+                    </span>
+                </h1>
+
+                <div class="sec-wrap">
+                    <div>
+                        <button type="button" id="pure" class="btn-breed">퓨어 브리드</button>
+                        <div id="pure_log" class="overed-log"></div>
+                    </div>
+
+                    <div>
+                        <button type="button" id="cross" class="btn-breed">크로스 브리드</button>
+                        <div id="cross_log" class="overed-log"></div>
+                    </div>
+
+                    <div>
+                        <button type="button" id="tri" class="btn-breed">트라이 브리드</button>
+                        <div id="tri_log" class="overed-log"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="dx_lifepath" class="sec">
+                <h1>
+                    <span>라이프패스</span>
+                    <button type="button" id="one">
+                        <span>원버튼</span>
+                        <i class="fa-solid fa-play"></i>
+                    </button>
+
+                    <span class="check">
+                        <input type="checkbox" id="inc_aw">
+                        <label for="inc_aw">각성/충동에 0과 11 포함</label>
+                    </span>
+                    <span class="check">
+                        <input type="checkbox" id="inc_emo">
+                        <label for="inc_emo">감정표에 0과 101 포함</label>
+                    </span>
+                </h1>
+
+                <div class="sec-wrap">
+
+                    <div class="item-list">
+                        <div class="item">
+                            <button type="button" id="origin" class="btn-life-roll">출생</button>
+                            <div id="life_origin" class="lifepath-log"></div>
+                        </div>
+
+                        <div class="item">
+                            <button type="button" id="experience_student" class="btn-life-roll">경험(학생)</button>
+                            <div id="life_experience_student" class="lifepath-log"></div>
+                        </div>
+
+                        <div class="item">
+                            <button type="button" id="experience_normal" class="btn-life-roll">경험(일반사회)</button>
+                            <div id="life_experience_normal" class="lifepath-log"></div>
+                        </div>
+
+                        <div class="item">
+                            <button type="button" id="experience_back" class="btn-life-roll">경험(뒷사회)</button>
+                            <div id="life_experience_back" class="lifepath-log"></div>
+                        </div>
+
+                        <div class="item">
+                            <button type="button" id="experience_ugn" class="btn-life-roll">경험(UGN)</button>
+                            <div id="life_experience_ugn" class="lifepath-log"></div>
+                        </div>
+
+                        <div class="item">
+                            <button type="button" id="encounter" class="btn-life-roll">해후</button>
+                            <div id="life_encounter" class="lifepath-log"></div>
+                        </div>
+
+                        <div class="item">
+                            <button type="button" id="awakening" class="btn-life-roll">각성</button>
+                            <div id="life_awakening" class="lifepath-log"></div>
+                        </div>
+
+                        <div class="item">
+                            <button type="button" id="impulse" class="btn-life-roll">충동</button>
+
+                            <div id="life_impulse" class="lifepath-log"></div>
+                        </div>
+
+                        <div class="item">
+                            <button type="button" id="emotion_plus" class="btn-life-roll">감정표(+)</button>
+                            <div id="life_emotion_plus" class="lifepath-log"></div>
+                        </div>
+
+                        <div class="item">
+                            <button type="button" id="emotion_minus" class="btn-life-roll">감정표(-)</button>
+                            <div id="life_emotion_minus" class="lifepath-log"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // nav
+        document.querySelectorAll(".nav .link").forEach(btn => {
+            btn.addEventListener("click", function (e) {
+                if (e.target.id == "btn_all") {
+                    document.querySelectorAll(".sec").forEach(sec => {
+                        sec.style.display = "flex";
+                    });
+                } else {
+                    document.querySelectorAll(".sec").forEach(sec => {
+                        sec.style.display = "none";
+                    });
+                    document.getElementById(e.target.id.replace("btn_", "")).style.display = "flex";
+                }
+            });
+        });
+
+        // dice
+        document.getElementById("dx_roll").addEventListener("click", function () {
+            let $dice = document.querySelector("#dice") ?? "",
+                dice = $dice.value ?? 1,
+                $cri = document.querySelector("#cri") ?? "",
+                cri = $cri.value ?? 10,
+                $plus = document.querySelector("#plus") ?? "",
+                plus = $plus.value ?? 0,
+                success = 0;
+
+            if (!$dice || !dice) {
+                dice = 1;
+                $dice.value = dice;
+            }
+            if (!$cri || !cri) {
+                cri = 10;
+                $cri.value = cri;
+            }
+            if (!$plus || !plus) {
+                plus = 0;
+                $plus.value = plus;
+            }
+
+            document.querySelector(".dice-log").innerHTML = `<div>${dice} dx ${cri} + ${plus}</div>`;
+
+            let result = rollingDxDice(dice, cri, plus);
+            document.querySelector(".dice-log").innerHTML += `<div>${result.log} = ${result.sum}</div><div>${result.sum} + ${parseInt(plus)} = ${result.sum + parseInt(plus)}</div>`;
+        });
+
+        // overed
+        document.querySelectorAll(".btn-breed").forEach(btn => {
+            btn.addEventListener("click", function (e) {
+                let res = chooseBreed();
+                document.getElementById(e.target.id + "_log").innerHTML = res;
+            });
+        });
+
+        // lifepath
+        document.querySelectorAll(".btn-life-roll").forEach(btn => {
+            btn.addEventListener("click", function (e) {
+                let res = chooseLife(e.target.id);
+                printLife(e.target.id, res);
+            });
+        });
+
+        document.getElementById("one").addEventListener("click", function (e) {
+            let res = "";
+            let menu = ["origin", "experience_student", "experience_normal", "experience_back", "experience_ugn", "encounter", "awakening", "impulse", "emotion_plus", "emotion_minus"];
+
+            menu.forEach(el => {
+                res = chooseLife(el);
+                printLife(el, res);
+            })
+        });
+
+        // 함수
+        function chooseBreed() {
+            let breedList = ["엔젤=헤일로", "발로르", "블랙독", "브람=스토커", "키마이라", "엑자일", "하누만", "모르페우스", "노이만", "오르쿠스", "샐러맨더", "솔라리스", "우로보로스", "아자토스"]
+            let dice = rollingDice(12);
+
+            if (document.getElementById("inc_our").checked) {
+                dice = rollingDice(14);
+            }
+
+            return breedList[dice - 1];
+        }
+
+        function chooseLife(cate) {
+            let dice = rollingDice(100),
+                dice10 = rollingDice(10),
+                diceResult = Math.floor((dice - 1) / 5),
+                list = "";
+
+            switch (cate) {
+                case "origin":
+                    let originList = [
+                        { dice: "01~05", title: "천애고아", desc: "천애고아다.고아였다.무언가의 이유로 가족과 별거하게 되었다 등 이유는 자유롭게 설정해도 좋다.", lois: "이해자" },
+                        { dice: "06~10", title: "부친(모친)", desc: "부재, 부친 혹은 모친이 없다", lois: "부친(모친)" },
+                        { dice: "11~15", title: "양부모", desc: "양부모에게서 키워졌다.양부모나, 진짜 부모와의 관계 등은 자유롭게 설정해도 좋다.", lois: "양부모" },
+                        { dice: "16~20", title: "조직의 일원", desc: "부모가 어딘가의 조직원이다.어떤 조직인가, 조직의 관계 등은 자유롭게 설정해도 좋다.", lois: "조직원" },
+                        { dice: "21~25", title: "정치권력", desc: "부모가 정치적인 권력을 가지고 있다.정치가이기도 하며, 관리기도 하고, 구체적인 입장은 자유롭게 설정해도 좋다.", lois: "부친(모친)" },
+                        { dice: "26~30", title: "권력자의 혈족", desc: "혈족으로 이어지는 가계의 후예로써 태어나, 그 때부터 권력을 가지고 있다.", lois: "교육자" },
+                        { dice: "31~35", title: "자산가", desc: "부모가 자산가이며, 경제적으로 풍족하다", lois: "부친(모친)" },
+                        { dice: "36~40", title: "유명인", desc: "부모가 사회적 인지도가 높다.", lois: "부친(모친)" },
+                        { dice: "41~45", title: "형제", desc: "남자 윗사람 혹은 남자 아랫사람이 있다.형제와의 관계, 혈연관계의 유무, 연령차이 등은 자유롭게 설정해도 좋다.", lois: "윗사람(아랫사람)" },
+                        { dice: "46~50", title: "자매", desc: "여자 윗사람 혹은 여자 아랫사람이 있다.자매와의 관계, 혈연관계의 유무, 연령차이 등은 자유롭게 설정해도 좋다.", lois: "윗사람(아랫사람)" },
+                        { dice: "51~55", title: "명가의 출신", desc: "유래가 있는 가문에 태어났다", lois: "부친(모친)" },
+                        { dice: "56~60", title: "부모의 이해", desc: "부모가 레네게이드 바이러스에 대해 이해하고 있다.", lois: "부친(모친)" },
+                        { dice: "61~65", title: "빈곤", desc: "경제적으로 곤란한 가정에 태어났다.", lois: "친구" },
+                        { dice: "66~70", title: "지긋지긋한 아이", desc: "누가 어떤 이유로 꼴보기 싫어하는지는 자유롭게 설정해도 좋다.", lois: "친척" },
+                        { dice: "71~75", title: "바라마지않던 아이", desc: "무언가의 이유로, 축복받으며 태어났다.누가 어떤 이유로 바랬는지는 자유롭게 설정해도 좋다.", lois: "가족" },
+                        { dice: "76~80", title: "안정된 가족", desc: "안정된 가정에 태어나, 평탄한 인생을 살아왔다.", lois: "부친(모친)" },
+                        { dice: "81~85", title: "친척과 소원", desc: "친족과 사이가 멀다.소원해진 상대나 이유는 자유롭게 설정해도 좋다.", lois: "친척" },
+                        { dice: "86~90", title: "여러명의 형제자매", desc: "여러명의 형제자매가 있다.", lois: "형제자매" },
+                        { dice: "91~95", title: "쌍둥이", desc: "쌍둥이인 형제자매가 있다.", lois: "쌍둥이" },
+                        { dice: "96~10", title: "범죄자의 아이", desc: "가족이 범죄자다.어느정도의 범죄를 저질렀는가는 자유롭게 설정해도 좋다.", lois: "부친(모친)" }
+                    ];
+                    return { dice: dice, list: originList[diceResult] };
+                    break;
+                case "experience_student":
+                    let experienceStudentList = [
+                        { dice: "01~05", title: "평범", desc: "내세울 것은 아무것도 없는, 평범한 인생을 살았다.", lois: "반 친구" },
+                        { dice: "06~10", title: "영원한 이별", desc: "소중한 누군가와의 영원한 이별을 겪었다.", lois: "첫 친구" },
+                        { dice: "11~15", title: "장기입원", desc: "큰 병이나 큰 상처를 입어 장기입원을 했다. 고독감을 얻는다거나, 병으로 앞으로 나설 용기가 없는 등 영향은 자유롭게 설정해도 좋다.", lois: "의사" },
+                        { dice: "16~20", title: "큰 사고", desc: "당신은 커다란 사고에 휘말리고 말았다. 그 사고에 대해서는 다들 알고있다.", lois: "구조자" },
+                        { dice: "21~25", title: "죽음과 재생", desc: "일시적인 빈사상태였으며, 부활했다. 사망선고를 받았으면서도 소생했다거나, 호적에서 파였다던가 자유롭게 설정해도 좋다.", lois: "의사" },
+                        { dice: "26~30", title: "소실", desc: "소중했던 인형, 친구, 살고 있던 집 등, 소중한 것을 잃었다.", lois: "오랜 친구" },
+                        { dice: "31~35", title: "살상", desc: "당신에게 악의는 없었지만, 누군가를 죽이고 말았다. 그의 가족이나 친구는 지금도 살아가고 있다.", lois: "고인" },
+                        { dice: "36~40", title: "뉴스", desc: "당신은 TV나 신문 등에 나온 적이 있다.", lois: "저널리스트" },
+                        { dice: "41~45", title: "해외생활", desc: "태어난 나라를 떠나, 해외에서 일정기간 생활했다.", lois: "해외의 친구" },
+                        { dice: "46~50", title: "대성공", desc: "시험은 높은 점수고, 대회에선 우수한 성적을 따내는 등, 커다란 성공을 이루어 내어 명성을 얻었다.", lois: "" },
+                        { dice: "51~55", title: "", desc: "", lois: "" },
+                        { dice: "56~60", title: "", desc: "", lois: "" },
+                        { dice: "61~65", title: "", desc: "", lois: "" },
+                        { dice: "66~70", title: "", desc: "", lois: "" },
+                        { dice: "71~75", title: "", desc: "", lois: "" },
+                        { dice: "76~80", title: "", desc: "", lois: "" },
+                        { dice: "81~85", title: "", desc: "", lois: "" },
+                        { dice: "86~90", title: "", desc: "", lois: "" },
+                        { dice: "91~95", title: "", desc: "", lois: "" },
+                        { dice: "96~10", title: "", desc: "", lois: "" },
+                    ];
+                    return { dice: dice, list: experienceStudentList[diceResult] };
+                    break;
+                case "experience_normal":
+                    let experienceNormalList = [
+                        { dice: "01~05", title: "", desc: "", lois: "" },
+                        { dice: "06~10", title: "", desc: "", lois: "" },
+                        { dice: "11~15", title: "", desc: "", lois: "" },
+                        { dice: "16~20", title: "", desc: "", lois: "" },
+                        { dice: "21~25", title: "", desc: "", lois: "" },
+                        { dice: "26~30", title: "", desc: "", lois: "" },
+                        { dice: "31~35", title: "", desc: "", lois: "" },
+                        { dice: "36~40", title: "", desc: "", lois: "" },
+                        { dice: "41~45", title: "", desc: "", lois: "" },
+                        { dice: "46~50", title: "", desc: "", lois: "" },
+                        { dice: "51~55", title: "", desc: "", lois: "" },
+                        { dice: "56~60", title: "", desc: "", lois: "" },
+                        { dice: "61~65", title: "", desc: "", lois: "" },
+                        { dice: "66~70", title: "", desc: "", lois: "" },
+                        { dice: "71~75", title: "", desc: "", lois: "" },
+                        { dice: "76~80", title: "", desc: "", lois: "" },
+                        { dice: "81~85", title: "", desc: "", lois: "" },
+                        { dice: "86~90", title: "", desc: "", lois: "" },
+                        { dice: "91~95", title: "", desc: "", lois: "" },
+                        { dice: "96~10", title: "", desc: "", lois: "" },];
+                    return { dice: dice, list: experienceNormalList[diceResult] };
+                    break;
+                case "experience_back":
+                    let experienceBackList = [
+                        { dice: "01~05", title: "", desc: "", lois: "" },
+                        { dice: "06~10", title: "", desc: "", lois: "" },
+                        { dice: "11~15", title: "", desc: "", lois: "" },
+                        { dice: "16~20", title: "", desc: "", lois: "" },
+                        { dice: "21~25", title: "", desc: "", lois: "" },
+                        { dice: "26~30", title: "", desc: "", lois: "" },
+                        { dice: "31~35", title: "", desc: "", lois: "" },
+                        { dice: "36~40", title: "", desc: "", lois: "" },
+                        { dice: "41~45", title: "", desc: "", lois: "" },
+                        { dice: "46~50", title: "", desc: "", lois: "" },
+                        { dice: "51~55", title: "", desc: "", lois: "" },
+                        { dice: "56~60", title: "", desc: "", lois: "" },
+                        { dice: "61~65", title: "", desc: "", lois: "" },
+                        { dice: "66~70", title: "", desc: "", lois: "" },
+                        { dice: "71~75", title: "", desc: "", lois: "" },
+                        { dice: "76~80", title: "", desc: "", lois: "" },
+                        { dice: "81~85", title: "", desc: "", lois: "" },
+                        { dice: "86~90", title: "", desc: "", lois: "" },
+                        { dice: "91~95", title: "", desc: "", lois: "" },
+                        { dice: "96~10", title: "", desc: "", lois: "" },];
+                    return { dice: dice, list: experienceBackList[diceResult] };
+                    break;
+                case "experience_ugn":
+                    let experienceUgnList = [
+                        { dice: "01~05", title: "", desc: "", lois: "" },
+                        { dice: "06~10", title: "", desc: "", lois: "" },
+                        { dice: "11~15", title: "", desc: "", lois: "" },
+                        { dice: "16~20", title: "", desc: "", lois: "" },
+                        { dice: "21~25", title: "", desc: "", lois: "" },
+                        { dice: "26~30", title: "", desc: "", lois: "" },
+                        { dice: "31~35", title: "", desc: "", lois: "" },
+                        { dice: "36~40", title: "", desc: "", lois: "" },
+                        { dice: "41~45", title: "", desc: "", lois: "" },
+                        { dice: "46~50", title: "", desc: "", lois: "" },
+                        { dice: "51~55", title: "", desc: "", lois: "" },
+                        { dice: "56~60", title: "", desc: "", lois: "" },
+                        { dice: "61~65", title: "", desc: "", lois: "" },
+                        { dice: "66~70", title: "", desc: "", lois: "" },
+                        { dice: "71~75", title: "", desc: "", lois: "" },
+                        { dice: "76~80", title: "", desc: "", lois: "" },
+                        { dice: "81~85", title: "", desc: "", lois: "" },
+                        { dice: "86~90", title: "", desc: "", lois: "" },
+                        { dice: "91~95", title: "", desc: "", lois: "" },
+                        { dice: "96~10", title: "", desc: "", lois: "" },];
+                    return { dice: dice, list: experienceUgnList[diceResult] };
+                    break;
+                case "encounter":
+                    let encounterList = [
+                        { dice: "01~05", title: "", desc: "", lois: "" },
+                        { dice: "06~10", title: "", desc: "", lois: "" },
+                        { dice: "11~15", title: "", desc: "", lois: "" },
+                        { dice: "16~20", title: "", desc: "", lois: "" },
+                        { dice: "21~25", title: "", desc: "", lois: "" },
+                        { dice: "26~30", title: "", desc: "", lois: "" },
+                        { dice: "31~35", title: "", desc: "", lois: "" },
+                        { dice: "36~40", title: "", desc: "", lois: "" },
+                        { dice: "41~45", title: "", desc: "", lois: "" },
+                        { dice: "46~50", title: "", desc: "", lois: "" },
+                        { dice: "51~55", title: "", desc: "", lois: "" },
+                        { dice: "56~60", title: "", desc: "", lois: "" },
+                        { dice: "61~65", title: "", desc: "", lois: "" },
+                        { dice: "66~70", title: "", desc: "", lois: "" },
+                        { dice: "71~75", title: "", desc: "", lois: "" },
+                        { dice: "76~80", title: "", desc: "", lois: "" },
+                        { dice: "81~85", title: "", desc: "", lois: "" },
+                        { dice: "86~90", title: "", desc: "", lois: "" },
+                        { dice: "91~95", title: "", desc: "", lois: "" },
+                        { dice: "96~10", title: "", desc: "", lois: "" },];
+                    return { dice: dice, list: encounterList[diceResult] };
+                    break;
+                case "awakening":
+                    let awakeningList = [
+                        { dice: "0", title: "천애고아", desc: "천애고아다.고아였다.무언가의 이유로 가족과 별거하게 되었다 등 이유는 자유롭게 설정해도 좋다.", lois: "이해자" },
+                        { dice: "1", title: "부친(모친)", desc: "부재, 부친 혹은 모친이 없다", lois: "부친(모친)" },
+                        { dice: "2", title: "양부모", desc: "양부모에게서 키워졌다.양부모나, 진짜 부모와의 관계 등은 자유롭게 설정해도 좋다.", lois: "양부모" },
+                        { dice: "3", title: "조직의 일원", desc: "부모가 어딘가의 조직원이다.어떤 조직인가, 조직의 관계 등은 자유롭게 설정해도 좋다.", lois: "조직원" },
+                        { dice: "4", title: "정치권력", desc: "부모가 정치적인 권력을 가지고 있다.정치가이기도 하며, 관리기도 하고, 구체적인 입장은 자유롭게 설정해도 좋다.", lois: "부친(모친)" },
+                        { dice: "5", title: "권력자의 혈족", desc: "혈족으로 이어지는 가계의 후예로써 태어나, 그 때부터 권력을 가지고 있다.", lois: "교육자" },
+                        { dice: "6", title: "자산가", desc: "부모가 자산가이며, 경제적으로 풍족하다", lois: "부친(모친)" },
+                        { dice: "7", title: "유명인", desc: "부모가 사회적 인지도가 높다.", lois: "부친(모친)" },
+                        { dice: "8", title: "형제", desc: "남자 윗사람 혹은 남자 아랫사람이 있다.형제와의 관계, 혈연관계의 유무, 연령차이 등은 자유롭게 설정해도 좋다.", lois: "윗사람(아랫사람)" },
+                        { dice: "9", title: "자매", desc: "여자 윗사람 혹은 여자 아랫사람이 있다.자매와의 관계, 혈연관계의 유무, 연령차이 등은 자유롭게 설정해도 좋다.", lois: "윗사람(아랫사람)" },
+                        { dice: "10", title: "명가의 출신", desc: "유래가 있는 가문에 태어났다", lois: "부친(모친)" },
+                        { dice: "11", title: "부모의 이해", desc: "부모가 레네게이드 바이러스에 대해 이해하고 있다.", lois: "부친(모친)" },
+                    ];
+                    return { dice: dice10, list: awakeningList[dice10] };
+                    break;
+                case "impulse":
+                    let impulseList = [
+                        { dice: "0", title: "천애고아", desc: "천애고아다.고아였다.무언가의 이유로 가족과 별거하게 되었다 등 이유는 자유롭게 설정해도 좋다.", lois: "이해자" },
+                        { dice: "1", title: "부친(모친)", desc: "부재, 부친 혹은 모친이 없다", lois: "부친(모친)" },
+                        { dice: "2", title: "양부모", desc: "양부모에게서 키워졌다.양부모나, 진짜 부모와의 관계 등은 자유롭게 설정해도 좋다.", lois: "양부모" },
+                        { dice: "3", title: "조직의 일원", desc: "부모가 어딘가의 조직원이다.어떤 조직인가, 조직의 관계 등은 자유롭게 설정해도 좋다.", lois: "조직원" },
+                        { dice: "4", title: "정치권력", desc: "부모가 정치적인 권력을 가지고 있다.정치가이기도 하며, 관리기도 하고, 구체적인 입장은 자유롭게 설정해도 좋다.", lois: "부친(모친)" },
+                        { dice: "5", title: "권력자의 혈족", desc: "혈족으로 이어지는 가계의 후예로써 태어나, 그 때부터 권력을 가지고 있다.", lois: "교육자" },
+                        { dice: "6", title: "자산가", desc: "부모가 자산가이며, 경제적으로 풍족하다", lois: "부친(모친)" },
+                        { dice: "7", title: "유명인", desc: "부모가 사회적 인지도가 높다.", lois: "부친(모친)" },
+                        { dice: "8", title: "형제", desc: "남자 윗사람 혹은 남자 아랫사람이 있다.형제와의 관계, 혈연관계의 유무, 연령차이 등은 자유롭게 설정해도 좋다.", lois: "윗사람(아랫사람)" },
+                        { dice: "9", title: "자매", desc: "여자 윗사람 혹은 여자 아랫사람이 있다.자매와의 관계, 혈연관계의 유무, 연령차이 등은 자유롭게 설정해도 좋다.", lois: "윗사람(아랫사람)" },
+                        { dice: "10", title: "명가의 출신", desc: "유래가 있는 가문에 태어났다", lois: "부친(모친)" },
+                        { dice: "11", title: "부모의 이해", desc: "부모가 레네게이드 바이러스에 대해 이해하고 있다.", lois: "부친(모친)" },
+                    ];
+                    return { dice: dice10, list: impulseList[dice10] };
+                    break;
+                case "emotion_plus":
+                    let emotionPlusList = [
+                        { dice: "0", title: "천애고아", desc: "천애고아다.고아였다.무언가의 이유로 가족과 별거하게 되었다 등 이유는 자유롭게 설정해도 좋다.", lois: "이해자" },
+                        { dice: "1", title: "부친(모친)", desc: "부재, 부친 혹은 모친이 없다", lois: "부친(모친)" },
+                        { dice: "2", title: "양부모", desc: "양부모에게서 키워졌다.양부모나, 진짜 부모와의 관계 등은 자유롭게 설정해도 좋다.", lois: "양부모" },
+                        { dice: "3", title: "조직의 일원", desc: "부모가 어딘가의 조직원이다.어떤 조직인가, 조직의 관계 등은 자유롭게 설정해도 좋다.", lois: "조직원" },
+                        { dice: "4", title: "정치권력", desc: "부모가 정치적인 권력을 가지고 있다.정치가이기도 하며, 관리기도 하고, 구체적인 입장은 자유롭게 설정해도 좋다.", lois: "부친(모친)" },
+                        { dice: "5", title: "권력자의 혈족", desc: "혈족으로 이어지는 가계의 후예로써 태어나, 그 때부터 권력을 가지고 있다.", lois: "교육자" },
+                        { dice: "6", title: "자산가", desc: "부모가 자산가이며, 경제적으로 풍족하다", lois: "부친(모친)" },
+                        { dice: "7", title: "유명인", desc: "부모가 사회적 인지도가 높다.", lois: "부친(모친)" },
+                        { dice: "8", title: "형제", desc: "남자 윗사람 혹은 남자 아랫사람이 있다.형제와의 관계, 혈연관계의 유무, 연령차이 등은 자유롭게 설정해도 좋다.", lois: "윗사람(아랫사람)" },
+                        { dice: "9", title: "자매", desc: "여자 윗사람 혹은 여자 아랫사람이 있다.자매와의 관계, 혈연관계의 유무, 연령차이 등은 자유롭게 설정해도 좋다.", lois: "윗사람(아랫사람)" },
+                        { dice: "10", title: "명가의 출신", desc: "유래가 있는 가문에 태어났다", lois: "부친(모친)" },
+                        { dice: "11", title: "부모의 이해", desc: "부모가 레네게이드 바이러스에 대해 이해하고 있다.", lois: "부친(모친)" },
+                    ];
+                    return { dice: dice10, list: emotionPlusList[dice10] };
+                    break;
+                case "emotion_minus":
+                    let emotionMinusList = [
+                        { dice: "0", title: "천애고아", desc: "천애고아다.고아였다.무언가의 이유로 가족과 별거하게 되었다 등 이유는 자유롭게 설정해도 좋다.", lois: "이해자" },
+                        { dice: "1", title: "부친(모친)", desc: "부재, 부친 혹은 모친이 없다", lois: "부친(모친)" },
+                        { dice: "2", title: "양부모", desc: "양부모에게서 키워졌다.양부모나, 진짜 부모와의 관계 등은 자유롭게 설정해도 좋다.", lois: "양부모" },
+                        { dice: "3", title: "조직의 일원", desc: "부모가 어딘가의 조직원이다.어떤 조직인가, 조직의 관계 등은 자유롭게 설정해도 좋다.", lois: "조직원" },
+                        { dice: "4", title: "정치권력", desc: "부모가 정치적인 권력을 가지고 있다.정치가이기도 하며, 관리기도 하고, 구체적인 입장은 자유롭게 설정해도 좋다.", lois: "부친(모친)" },
+                        { dice: "5", title: "권력자의 혈족", desc: "혈족으로 이어지는 가계의 후예로써 태어나, 그 때부터 권력을 가지고 있다.", lois: "교육자" },
+                        { dice: "6", title: "자산가", desc: "부모가 자산가이며, 경제적으로 풍족하다", lois: "부친(모친)" },
+                        { dice: "7", title: "유명인", desc: "부모가 사회적 인지도가 높다.", lois: "부친(모친)" },
+                        { dice: "8", title: "형제", desc: "남자 윗사람 혹은 남자 아랫사람이 있다.형제와의 관계, 혈연관계의 유무, 연령차이 등은 자유롭게 설정해도 좋다.", lois: "윗사람(아랫사람)" },
+                        { dice: "9", title: "자매", desc: "여자 윗사람 혹은 여자 아랫사람이 있다.자매와의 관계, 혈연관계의 유무, 연령차이 등은 자유롭게 설정해도 좋다.", lois: "윗사람(아랫사람)" },
+                        { dice: "10", title: "명가의 출신", desc: "유래가 있는 가문에 태어났다", lois: "부친(모친)" },
+                        { dice: "11", title: "부모의 이해", desc: "부모가 레네게이드 바이러스에 대해 이해하고 있다.", lois: "부친(모친)" },
+                    ];
+                    return { dice: dice10, list: emotionMinusList[dice10] };
+                    break;
+                default:
+                    break;
+            }
+        }
+
+        function printLife(id, res) {
+            document.getElementById("life_" + id).innerHTML = `<div class="dice">${res.dice}. ${res.list.title}</div><div class="lois">${res.list.lois}</div><div class="desc">${res.list.desc}</div>`;
+
+        }
+
+        function rollingDxDice(dice, cri, plus) {
+            let repeat = 1,
+                sum = 0,
+                log = [];
+
+            for (let i = 0; i < repeat; i++) {
+                success = 0;
+                let tmpLog = [];
+                for (let j = 0; j < dice; j++) {
+                    let roll = Math.floor(Math.random() * 10) + 1;
+                    tmpLog.push(roll)
+
+                    if (roll >= cri) {
+                        success++;
+                    }
+                }
+                log.push("[" + tmpLog + "]");
+
+                if (success > 0) {
+                    repeat++;
+                    dice = success;
+                    sum += 10;
+                } else {
+                    tmpLog.sort().reverse();
+                    sum += tmpLog[0];
+                }
+            };
+
+            let result = {
+                sum: sum,
+                log: log
+            }
+
+            return result;
+        }
+
+        function rollingDice(dice) {
+            let roll = Math.floor(Math.random() * dice) + 1;
+
+            return roll;
+        }
+    </script>
+</body>
+
+</html>
