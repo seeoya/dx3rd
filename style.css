@@ -288,7 +288,6 @@ header .nav .link:hover {
 #dx_lifepath .lifepath-log .desc {
     padding: 10px 5px 10px;
     text-indent: 0.5rem;
-
 }
 
 #dx_lifepath .item-list .item, .lifepath-log {
@@ -298,7 +297,6 @@ header .nav .link:hover {
 }
 
 /* footer */
-
 footer {
     padding: 20px 0;
     text-align: right;
